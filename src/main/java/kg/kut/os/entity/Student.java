@@ -1,6 +1,7 @@
 package kg.kut.os.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -28,6 +29,22 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
+
+    @ManyToMany
+    @JoinTable(
+            name = "students_sections",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "section_id")
+    )
+    private List<Section > sections;
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
 
     public Student() {
     }
